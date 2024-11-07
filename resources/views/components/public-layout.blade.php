@@ -46,6 +46,9 @@
         </style>
     </head>
     <body class="relative h-100 bg-cover bg-no-repeat bg-center">
+
+        Dharmesh
+
         {{ $slot }}
     </body>
 </html>
