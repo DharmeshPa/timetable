@@ -1,0 +1,1 @@
+<tr {{$attributes->merge(['class'=>'border hover:bg-cypher-gray/80 hover:transition-color hover:duration-300'])}}>{{ $slot }}</tr>

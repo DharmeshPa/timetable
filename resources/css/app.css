@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.chosen-container{
+    font-size:inherit;
+}
+.chosen-container-single .chosen-single{
+    height:42px;
+    line-height:42px;
+}
+
+.chosen-container-single .chosen-single div b {
+    background: url(https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen-sprite.png) no-repeat 0 12px;
+}
+
+.chosen-container-single .chosen-single{
+    border:1px solid #e5e5e5;
+    padding:0 0 0 10px;
+}
+.chosen-container-multi .chosen-choices {
+    padding: 6px 5px;
+    border: 1px solid #e5e7eb;
+}
+
+.landscape-contents{
+    display:block;
+}
+
+.portrait-contents{
+    display:none;
+}
+
+
+
+@media screen and (max-width:1080px) {
+    
+   .landscape-contents{
+        display:none;
+    }
+
+    .portrait-contents{
+        display:block;
+    }
+
+}
