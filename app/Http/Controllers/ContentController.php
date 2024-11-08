@@ -97,6 +97,10 @@ class ContentController extends Controller
 
         //delete
         $content->delete();
+
+        //
+        $this->notify_frontend($content);
+
         //redirect
         return redirect()->back()->with('success', sprintf(__('validation.deleted'),'Content'));
     }
@@ -134,6 +138,10 @@ class ContentController extends Controller
                 $new_topic->save();
             }
         }
+        
+        //
+        $this->notify_frontend($content);
+
         //redirect
         return redirect()->back()->with('success', sprintf(__('validation.duplicate'),'Content'));
     }

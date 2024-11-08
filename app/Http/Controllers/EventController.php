@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Venue;
 use Illuminate\Validation\Rule;
-use App\Events\DataUpdated;
+use GuzzleHttp\Client;
 
 
 
@@ -100,8 +100,10 @@ class EventController extends Controller
 
         //
         $event->update($userAttributes);
-        //
-        event(new DataUpdated($event));
+        
+        // Send a notification to the Socket.IO server
+        $this->notify_frontend($event);
+
         //
         return redirect('/events')->with('success',sprintf(__('validation.updated'),'Event'));
     }
@@ -116,7 +118,10 @@ class EventController extends Controller
         
         //delete
         $event->delete();
-                
+        
+        //
+        $this->notify_frontend($event);
+
         //redirect
         return redirect()->back()->with('success', sprintf(__('validation.deleted'),'Event'));
     }

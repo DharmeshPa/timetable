@@ -70,6 +70,8 @@ class TopicController extends Controller
                 'requirement' => $request->requirements[$key],
             ]);
         }
+        // Send a notification to the Socket.IO server
+        $this->notify_frontend($timetable);
 
         //redirect
         return redirect('/contents/'.$timetable->id)->with('success',sprintf(__('validation.added'),'Content'));
@@ -136,11 +138,11 @@ class TopicController extends Controller
                 'requirement' => $request->requirements[$key],
             ]);
         }
+        // Send a notification to the Socket.IO server
+        $this->notify_frontend($timetable);
         //redirect
         return redirect('/contents/'.$content->timetable_id)->with('success',sprintf(__('validation.updated'),'Content'));
-
     }
-
     /**
      * Remove the specified resource from storage.
      */

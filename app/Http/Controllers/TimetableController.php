@@ -60,7 +60,10 @@ class TimetableController extends Controller
         $userAttributes['display_id'] = $display->id;
         
         //add
-        Timetable::Create($userAttributes);
+        $timetable = Timetable::Create($userAttributes);
+
+        // Send a notification to the Socket.IO server
+        $this->notify_frontend($timetable);
 
         //return 
         return redirect('/timetables/'.$display->id)->with('success',sprintf(__('validation.added'),'Timetable'));
@@ -112,6 +115,9 @@ class TimetableController extends Controller
         //add
         $timetable->update($userAttributes);
 
+        // Send a notification to the Socket.IO server
+        $this->notify_frontend($timetable);
+
         //return 
         return redirect('/timetables/'.$timetable->display_id)->with('success',sprintf(__('validation.updated'),'Timetable'));
     }
@@ -131,7 +137,10 @@ class TimetableController extends Controller
 
         //delete
         $timetable->delete();
-            
+        
+        // Send a notification to the Socket.IO server
+        $this->notify_frontend($timetable);
+
         //redirect
         return redirect()->back()->with('success', sprintf(__('validation.deleted'),'Timetable'));
     }
@@ -181,6 +190,9 @@ class TimetableController extends Controller
                 }
             }
         }
+        // Send a notification to the Socket.IO server
+        $this->notify_frontend($timetable);
+        
         //redirect
         return redirect()->back()->with('success', sprintf(__('validation.duplicate'),'Timetable'));
     }

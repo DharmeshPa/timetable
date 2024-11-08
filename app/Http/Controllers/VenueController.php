@@ -46,7 +46,7 @@ class VenueController extends Controller
         
         //add associated records
         $request->locations[0] != "" && $venue->add($venue);
-
+        
         //redirect
         return redirect('/venues')->with('success', sprintf(__('validation.added'),'Venue'));
     }

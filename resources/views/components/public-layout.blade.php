@@ -4,7 +4,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{$display->event->name}}</title>
-        
         <!-- Roboto font -->
         <link rel="stylesheet" href="{{ asset('css/roboto.css') }}"/>
 
@@ -32,6 +31,21 @@
             var offset = {{$display->event->offset}};
         </script>
         
+        <!-- //socket IO -->
+        <script src="{{ asset('js/socket.io.min.js') }}"></script>
+
+        <script >
+            // Connect to the Socket.IO server
+            var socket = io('https://pod-laravel.cypherdemo.co.uk:3000');
+
+            // Listen for the "message" event from the server
+            socket.on('message', (data) => {
+                var responseData = JSON.stringify(data);
+
+                //reload the page
+                location.reload();
+            });
+        </script>
         <!-- Styles -->
         @vite(['resources/css/app.css','resources/js/app.js'])
 
@@ -46,9 +60,6 @@
         </style>
     </head>
     <body class="relative h-100 bg-cover bg-no-repeat bg-center">
-
-        Dharmesh
-
         {{ $slot }}
     </body>
 </html>

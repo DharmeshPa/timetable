@@ -49,6 +49,9 @@ class MessageController extends Controller
         //
         $content = Content::create(Arr::except($userAttributes, ['message']));
 
+        // Send a notification to the Socket.IO server
+        $this->notify_frontend($content);
+
         //
         Message::create([
             'content_id' => $content->id,
@@ -104,6 +107,9 @@ class MessageController extends Controller
             'message' => $request->message
         ]);
 
+        // Send a notification to the Socket.IO server
+        $this->notify_frontend($content);
+        
         //redirect
         return redirect('/contents/'.$content->timetable_id)->with('success',sprintf(__('validation.updated'),'Content'));
     }

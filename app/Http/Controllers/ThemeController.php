@@ -107,6 +107,9 @@ class ThemeController extends Controller
         //update the value
         $theme->update($userAttributes);
 
+        // Send a notification to the Socket.IO server
+        $this->notify_frontend($theme);
+
         //return to the theme
         //
         return redirect('/themes/'.$theme->id.'/edit')->with('success',sprintf(__('validation.updated'),'Theme'));
@@ -127,7 +130,10 @@ class ThemeController extends Controller
 
         //delete
         $theme->delete();
-                
+        
+        // Send a notification to the Socket.IO server
+        $this->notify_frontend($theme);
+
         //redirect
         return redirect()->back()->with('success', sprintf(__('validation.deleted'),'Event'));
     }

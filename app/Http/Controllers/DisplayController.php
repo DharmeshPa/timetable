@@ -51,9 +51,11 @@ class DisplayController extends Controller
 
         //add the description
         $userAttributes['event_id'] = $event->id;
-       
+        
         //add the record
-        Display::create($userAttributes);
+        $display = Display::create($userAttributes);
+        //
+        $this->notify_frontend($display);
         //
         return redirect('/displays/' . $event->id)->with('success',sprintf(__('validation.added'),'Display'));
     }
@@ -92,6 +94,9 @@ class DisplayController extends Controller
         $display->update($userAttributes);
         
         //
+        $this->notify_frontend($display);
+
+        //
         return redirect('/displays/'.$display->event_id)->with('success',sprintf(__('validation.updated'),'Display'));
     }
 
@@ -116,6 +121,9 @@ class DisplayController extends Controller
         //delete
         $display->delete();
         
+        //
+        $this->notify_frontend($display);
+
         //redirect
         return redirect()->back()->with('success', sprintf(__('validation.deleted'),'Display'));
     }
@@ -175,6 +183,9 @@ class DisplayController extends Controller
                 }
             }
         }
+        //
+        $this->notify_frontend($display);
+        
         //redirect
         return redirect()->back()->with('success', sprintf(__('validation.duplicate'),'Display'));
     }
